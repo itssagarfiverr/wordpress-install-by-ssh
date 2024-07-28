@@ -10,7 +10,6 @@ sudo apt install php-mysqli -y
 sudo apt install mysql-client -y
 sudo apt install mariadb-client -y
 sudo apt-get install mysql-server -y
-apt install mailutils -y
 clear
 cat <<EOF
  ____________________________________________________________________
