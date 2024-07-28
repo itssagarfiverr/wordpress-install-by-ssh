@@ -146,13 +146,17 @@ echo "========================="
 echo
 echo "Thank you... IntecHost.com"
 
-# Remove the lines related to downloading and running the script from .bashrc
-sed -i '/mkdir -p \/intechost\/cloud/d' ~/.bashrc
-sed -i '/curl -o \/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
+# Remove the lines related to downloading and running the WordPress setup script from .bashrc
+sed -i '/# Download wordpress.sh script and place it in the \/intechost\/cloud directory/,+1d' ~/.bashrc
+sed -i '/curl -o \/intechost\/cloud\/wordpress.sh https:\/\/raw.githubusercontent.com\/itssagarfiverr\/wordpress-install-by-ssh\/main\/wordpress.sh/d' ~/.bashrc
+sed -i '/# Disable other MOTD scripts/,+1d' ~/.bashrc
 sed -i '/sudo chmod -x \/etc\/update-motd.d\/\*/d' ~/.bashrc
+sed -i '/# Delete default index.html/,+1d' ~/.bashrc
 sed -i '/rm -rf \/var\/www\/html\/index.html/d' ~/.bashrc
+sed -i '/# Ensure the setup script is executable and then run it/,+1d' ~/.bashrc
 sed -i '/chmod +x \/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
 sed -i '/\/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
+
 
 # Prompt for server reboot
 echo -en "\n\n"
