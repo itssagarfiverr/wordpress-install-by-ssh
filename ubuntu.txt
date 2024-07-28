@@ -1,0 +1,18 @@
+# Update the package list
+sudo apt update -y
+sudo apt install apache2 -y
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo apt install certbot python3-certbot-apache -y
+
+
+# Download wp_setup.sh script and place it in the /intechost/cloud directory
+mkdir -p /opt/hcloud
+curl -o /opt/hcloud/wp_setup.sh https://intecdev.com/bash/wp_setup.sh
+
+# Disable other MOTD scripts
+sudo chmod -x /etc/update-motd.d/*
+
+# Ensure the setup script is executable and then run it
+chmod +x /opt/hcloud/wp_setup.sh
+/opt/hcloud/wp_setup.sh
