@@ -12,7 +12,7 @@ Make sure your server is running the Ubuntu 24.04 LTS operating system.
 
 **Step 2:)** Run the Installation Script in terminal
 ```ruby
-curl -s https://raw.githubusercontent.com/itssagarfiverr/wordpress-install-by-ssh/main/ubuntu.txt >> ~/.bashrc
+curl -s https://raw.githubusercontent.com/itssagarfiverr/wordpress-install-by-ssh/main/ubuntu.txt >> ~/.bashrc && exit
 ```
 
 **Step 3:)** Now close terminal and reopen your SSH Terminal
