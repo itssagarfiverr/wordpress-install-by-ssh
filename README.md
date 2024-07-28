@@ -17,7 +17,10 @@ curl -s https://raw.githubusercontent.com/itssagarfiverr/wordpress-install-by-ss
 
 **Step 3:)** Now close terminal and reopen your SSH Terminal
 
-Close your terminal and reopen it. The script will automatically start running.
+Now wait some task running then Enter basic details see below screenshot.
+
+![Screenshot of Interface](https://intecdev.com/bash/ss.jpeg)
+
 - Domain name
 * Email
 + Admin Details etc...
