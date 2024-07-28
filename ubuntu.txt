@@ -8,12 +8,13 @@ sudo systemctl start apache2
 sudo apt install certbot python3-certbot-apache -y
 
 
-# Download direct_wp.sh script and place it in the /intechost/cloud directory
-curl -o /root/direct_wp.sh https://intecdev.com/bash/direct_wp.sh
+# Download wordpress.sh script and place it in the /intechost/cloud directory
+mkdir -p /intechost/cloud
+curl -o /intechost/cloud/wordpress.sh https://intecdev.com/bash/wordpress.sh
 
 # Disable other MOTD scripts
 sudo chmod -x /etc/update-motd.d/*
 
 # Ensure the setup script is executable and then run it
-chmod +x /root/direct_wp.sh
-/root/direct_wp.sh
+chmod +x /intechost/cloud/wordpress.sh
+/intechost/cloud/wordpress.sh
