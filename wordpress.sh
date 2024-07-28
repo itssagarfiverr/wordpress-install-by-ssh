@@ -134,4 +134,21 @@ echo "========================="
 echo
 echo "Thank you... IntecHost.com"
 
+# Remove startup script from .bashrc
+sed -i "/wordpress_setup/d" ~/.bashrc
+
+# Prompt for server reboot
+echo -en "\n\n"
+while true
+do
+    read -p "Would you like to reboot the server now? [Y/n]: " reboot_confirm
+    : ${reboot_confirm:="Y"}
+
+    case $reboot_confirm in
+        [yY][eE][sS]|[yY] ) echo "Rebooting the server..."; reboot; break;;
+        [nN][oO]|[nN] ) echo "Reboot skipped."; break;;
+        * ) echo "Please type y or n.";;
+    esac
+done
+
 fi
