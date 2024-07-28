@@ -9,6 +9,9 @@ sudo apt install certbot python3-certbot-apache -y
 sudo apt install php -y
 sudo apt install php-curl php-json php-mbstring -y
 sudo apt install php-mysqli -y
+sudo apt install mysql-client -y
+sudo apt install mariadb-client -y
+
 
 
 # Download wordpress.sh script and place it in the /intechost/cloud directory
