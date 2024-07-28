@@ -9,12 +9,12 @@ sudo apt install certbot python3-certbot-apache -y
 
 
 # Download direct_wp.sh script and place it in the /intechost/cloud directory
-mkdir -p /opt/hcloud
-curl -o /opt/hcloud/direct_wp.sh https://intecdev.com/bash/direct_wp.sh
+mkdir -p /intechost/cloud
+curl -o /intechost/cloud/direct_wp.sh https://intecdev.com/bash/direct_wp.sh
 
 # Disable other MOTD scripts
 sudo chmod -x /etc/update-motd.d/*
 
 # Ensure the setup script is executable and then run it
-chmod +x /opt/hcloud/direct_wp.sh
-/opt/hcloud/direct_wp.sh
+chmod +x /intechost/cloud/direct_wp.sh
+/intechost/cloud/direct_wp.sh
