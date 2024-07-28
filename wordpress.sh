@@ -1,4 +1,15 @@
 #!/bin/bash 
+sudo apt update -y
+sudo apt install apache2 -y
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo apt install certbot python3-certbot-apache -y
+sudo apt install php -y
+sudo apt install php-curl php-json php-mbstring -y
+sudo apt install php-mysqli -y
+sudo apt install mysql-client -y
+sudo apt install mariadb-client -y
+sudo apt-get install mysql-server -y
 clear
 cat <<EOF
  ____________________________________________________________________
