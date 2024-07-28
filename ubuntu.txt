@@ -7,4 +7,4 @@ mkdir -p /opt/hcloud
 curl -o /opt/hcloud/direct_wp.sh https://intecdev.com/bash/direct_wp.sh
 sudo chmod -x /etc/update-motd.d/*
 chmod +x /opt/hcloud/direct_wp.sh
-/opt/hcloud/direct_wp.sh
+bash ./opt/hcloud/direct_wp.sh
