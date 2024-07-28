@@ -1,4 +1,5 @@
-#!/bin/bash 
+#!/bin/bash
+
 sudo apt update -y
 sudo apt install apache2 -y
 sudo systemctl enable apache2
@@ -11,28 +12,30 @@ sudo apt install mysql-client -y
 sudo apt install mariadb-client -y
 sudo apt-get install mysql-server -y
 clear
+
+set -e
+
 cat <<EOF
  ____________________________________________________________________
 |                                                                    |
-|   	===========================================                  |
-|   	::..𝐓𝐡i𝐬 𝐬𝐞𝐫𝐯𝐞𝐫 𝐢𝐬 𝐬𝐞𝐭 𝐛𝐲 IntecHost.com...::     	     |
-|   	===========================================                  |
-|    	   ___________                                               |
-|    	   < IntecHost >                                             |
-|     	   -----------                                               |
-|     	          \   ^__^                                           |
-|     	           \  (oo)\_______                                   |
-|     	              (__)\       )\/\                               |
-|     	                  ||----w |                                  |
-|     	                  ||     ||                                  |
-|     	                                                             |
-|   	===========================================                  |
-|   	        www.IntecHost.com                                    |
-|   	===========================================                  |       
+|    ===========================================                     |
+|    ::..𝐓𝐡i𝐬 𝐬𝐞𝐫𝐯𝐞𝐫 𝐢𝐬 𝐬𝐞𝐭 𝐛𝐲 IntecHost.com...::              |
+|    ===========================================                     |
+|       ___________                                                  |
+|       < IntecHost >                                                |
+|       -----------                                                  |
+|              \   ^__^                                              |
+|               \  (oo)\_______                                      |
+|                  (__)\       )\/\                                  |
+|                      ||----w |                                     |
+|                      ||     ||                                     |
 |                                                                    |
+|    ===========================================                     |
+|            www.IntecHost.com                                       |
+|    ===========================================                     |
 |                                                                    |
 |   Welcome to the Wordpress One-Click-App configuration.            |
-|   			By IntecHost.com			     |
+|           By IntecHost.com                                         |
 |                                                                    |
 |   In this process Wordpress will be set up accordingly.            |
 |   You only need to set your desired Domain and a few Wordpress     |
@@ -43,126 +46,187 @@ cat <<EOF
 |   Please enter the Domain in following pattern: your.example.com   |
 |____________________________________________________________________|
 EOF
-echo "============================================"
-echo "          WordPress Install Script          "
-echo "============================================"
-echo
 
-# Automatically generate database details and use the same password for the root user
-dbhost="localhost"
-dbname="wp_$(date +%s%N)"
-dbuser="user_$(date +%s%N)"
-dbpass=$(openssl rand -base64 12)
-rootpass=$dbpass
+user_input(){
+  while [ -z "$domain" ]
+  do
+    read -p "Your Domain: " domain
+  done
 
-#echo "Generated database details:"
-#echo "Database Name: $dbname"
-#echo "Database User: $dbuser"
-#echo "Database Password: $dbpass"
-#echo
-#echo "MySQL Root Password: $rootpass"
-
-echo
-echo "=============Admin details=================="
-echo -n "Site URL (e.g., example.com) : "
-read siteurl
-echo -n "Site Name (e.g., My Blog) : "
-read sitename
-echo -n "Admin Email Address : "
-read wpemail
-echo -n "Admin User Name : "
-read wpuser
-echo -n "Admin User Password : "
-read -s wppass
-echo
-echo -n "Run install? (y/n) : "
-read run
-
-if [ "$run" == "n" ]; then
-    exit
-else
-    echo
-    echo "============================================"
-    echo "A robot is now installing WordPress for you."
-    echo "============================================"
-    cd /var/www/html
-
-    # Check if wp-cli is installed
-    if ! command -v wp &> /dev/null; then
-        echo "wp-cli not found, installing..."
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        sudo mv wp-cli.phar /usr/local/bin/wp
-        sudo chmod +x /usr/local/bin/wp
-    fi
-
-    # Create the database and user if they do not exist
-    echo "Checking database..."
-    mysql -u root -p"$rootpass" -e "CREATE DATABASE IF NOT EXISTS $dbname; CREATE USER IF NOT EXISTS '$dbuser'@'localhost' IDENTIFIED BY '$dbpass'; GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost'; FLUSH PRIVILEGES;"
-
-    echo "Downloading the latest version of WordPress..."
-    curl -O https://wordpress.org/latest.tar.gz
-    echo "Extracting WordPress..."
-    tar -zxvf latest.tar.gz
-    cp -rf wordpress/* .
-    rm -R wordpress
-    rm latest.tar.gz
-
-    echo
-    echo "Creating wp-config.php..."
-    cp wp-config-sample.php wp-config.php
-    perl -pi -e "s/database_name_here/$dbname/g" wp-config.php
-    perl -pi -e "s/username_here/$dbuser/g" wp-config.php
-    perl -pi -e "s/password_here/$dbpass/g" wp-config.php
-    perl -pi -e "s/localhost/$dbhost/g" wp-config.php
-
-    mkdir -p wp-content/uploads
-    chmod 777 wp-content/uploads
-
-    echo
-    echo "Installing WordPress..."
-    wp core install --url="https://$siteurl/" --title="$sitename" --admin_user="$wpuser" --admin_password="$wppass" --admin_email="$wpemail" --allow-root
-
-    # Install Let's Encrypt SSL certificate if requested
-    echo
-    read -p "Do you want to create a Let's Encrypt Certificate for Domain https://$siteurl/? (y/n): " ssl_confirm
-    ssl_confirm=${ssl_confirm:-y}
-    if [[ "$ssl_confirm" =~ ^[Yy]$ ]]; then
-        echo "Installing Let's Encrypt SSL certificate..."
-        certbot --apache -d $siteurl -m $wpemail --agree-tos --no-eff-email
+  while true
+  do
+    read -p "Your Email Address (for Wordpress Account): " email
+    if grep -oP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$' <<<"$email" >/dev/null 2>&1; then
+      break
     else
-        echo "Skipping Let's Encrypt."
+      echo "Please enter a valid E-Mail."
     fi
+  done
 
-    echo "========================="
-echo "Installation is complete."
-echo
-echo "Website URL: https://$siteurl/"
-echo "Admin Access: https://$siteurl/wp-admin"
-echo
-echo "Username: $wpuser"
-echo "Password: ******** (Your chosen password)"
-echo "========================="
-echo
-echo "Thank you... IntecHost.com"
+  while [ -z "$username" ]
+  do
+    read -p "Your Username [Default=admin]: " username
+    username=${username:-admin}
+  done
 
-# Remove the lines related to downloading and running the WordPress setup script from .bashrc
-sed -i '/# Download wordpress.sh script and place it in the \/intechost\/cloud directory/,+1d' ~/.bashrc
-sed -i '/curl -o \/intechost\/cloud\/wordpress.sh https:\/\/raw.githubusercontent.com\/itssagarfiverr\/wordpress-install-by-ssh\/main\/wordpress.sh/d' ~/.bashrc
-sed -i '/# Disable other MOTD scripts/,+1d' ~/.bashrc
-sed -i '/sudo chmod -x \/etc\/update-motd.d\/\*/d' ~/.bashrc
-sed -i '/# Delete default index.html/,+1d' ~/.bashrc
-sed -i '/rm -rf \/var\/www\/html\/index.html/d' ~/.bashrc
-sed -i '/# Ensure the setup script is executable and then run it/,+1d' ~/.bashrc
-sed -i '/chmod +x \/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
-sed -i '/\/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
+  while true
+  do
+    read -s -p "Password: " password
+    echo
+    read -s -p "Password (again): " password2
+    echo
+    [ "$password" = "$password2" ] && break || echo "Please try again"
+  done
 
+  read -p "Wordpress Title: " title
+
+  db_name="wp_$(date +%s%N)"
+
+  db_user="user_$(date +%s%N)"
+
+  db_password=$(openssl rand -base64 12)
+
+  db_host="localhost"
+  
+  rootpass=$db_password
+
+  read -p "Table Prefix [Default=wp_]: " table_prefix
+  table_prefix=${table_prefix:-wp_}
+}
+
+certbot_crontab() {
+  echo -en "\n"
+  echo "Setting up Crontab for Let's Encrypt."
+  crontab -l > certbot || true
+  echo "30 2 * * 1 /usr/bin/certbot renew >> /var/log/le-renew.log" >> certbot
+  echo "35 2 * * 1 systemctl reload apache2" >> certbot
+  crontab certbot
+  rm certbot
+}
+
+echo -en "\n"
+echo "Please enter your details to set up your new Wordpress Instance."
+
+user_input
+
+while true
+do
+    echo -en "\n"
+    read -p "Is everything correct? [Y/n] " confirm
+    confirm=${confirm:-Y}
+
+    case $confirm in
+      [yY][eE][sS]|[yY] ) break;;
+      [nN][oO]|[nN] ) unset domain email username password title db_name db_user db_password db_host table_prefix; user_input;;
+      * ) echo "Please type y or n.";;
+    esac
+done
+
+# set domain_is_www variable
+if [[ $domain == "www."* ]]; then domain_is_www=true; else domain_is_www=false; fi
+
+sed -i "s/\$domain/$domain/g" /etc/apache2/sites-enabled/000-default.conf
+
+# create webserver folder and remove static page
+if [[ -d /var/www/wordpress ]]
+then
+  rm -rf /var/www/html
+  mv /var/www/wordpress /var/www/html
+  chown -Rf www-data:www-data /var/www/html
+  systemctl restart apache2
+fi
+
+# Enable necessary Modules
+a2enmod dir
+a2enmod rewrite
+a2enmod socache_shmcb
+a2enmod ssl
+
+echo -en "\n\n"
+echo -en "Do you want to create a Let's Encrypt Certificate for Domain $domain? \n"
+read -p "Note that the Domain needs to exist. [Y/n]: " le
+le=${le:-Y}
+case $le in
+    [Yy][eE][sS]|[yY] )
+      while true
+      do
+        read -p "Your Email Address (for Let's Encrypt Notifications): " le_email
+        if grep -oP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,24}$' <<<"$le_email" >/dev/null 2>&1; then
+          break
+        else
+          echo "Please enter a valid E-Mail."
+        fi
+      done
+      if [[ $domain_is_www = true ]]; then
+        certbot --noninteractive --apache -d $domain --agree-tos --email $le_email --no-redirect
+      elif [[ $domain_is_www = false ]]; then
+        certbot --noninteractive --apache -d $domain --agree-tos --email $le_email --redirect
+      fi
+      domain_use_https=true
+      certbot_crontab;;
+    [nN][oO]|[nN] ) echo -en "\nSkipping Let's Encrypt.\n"; domain_use_https=false;;
+    * ) echo "Please type y or n.";;
+esac
+
+# set redirects for www domain
+if [[ $domain_is_www = true ]] && [[ $domain_use_https = true ]]; then
+    cat << EOF >> /var/www/html/.htaccess
+  RewriteEngine on
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule (.*) https://$domain%{REQUEST_URI} [R=301,L]
+EOF
+elif [[ $domain_is_www = true ]] && [[ $domain_use_https = false ]]; then
+    cat << EOF >> /var/www/html/.htaccess
+  RewriteEngine on
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule (.*) http://$domain%{REQUEST_URI} [R=301,L]
+EOF
+fi
+systemctl restart apache2
+
+# install wp cli and configure WP
+wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/bin/wp
+chmod +x /usr/bin/wp
+
+# Download WordPress core files
+wp core download --allow-root --path="/var/www/html"
+
+# Create the database and user if they do not exist
+    echo "Checking database..."
+    mysql -u root -p"$rootpass" -e "CREATE DATABASE IF NOT EXISTS $db_name; CREATE USER IF NOT EXISTS '$db_user'@'localhost' IDENTIFIED BY '$db_password'; GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'localhost'; FLUSH PRIVILEGES;"
+    
+echo "Creating wp-config.php..."
+    cd /var/www/html
+    cp wp-config-sample.php wp-config.php
+    perl -pi -e "s/database_name_here/$db_name/g" wp-config.php
+    perl -pi -e "s/username_here/$db_user/g" wp-config.php
+    perl -pi -e "s/password_here/$db_password/g" wp-config.php
+    perl -pi -e "s/localhost/$db_host/g" wp-config.php
+
+# Install WordPress
+wp core install --allow-root --path="/var/www/html" --title="$title" --url="$domain" --admin_email="$email" --admin_password="$password" --admin_user="$username"
+
+chown -Rf www-data:www-data /var/www/
+cp /etc/skel/.bashrc /root
+
+echo -en "\n\n"
+echo "The installation is complete and Wordpress should be running at your Domain."
+echo "--- $domain ---"
+echo -en "\n"
+echo "The Admin Panel can be accessed via"
+echo "--- $domain/wp-admin ---"
+echo -en "\n"
+
+# Remove startup script from .bashrc
+sed -i "/wordpress_setup/d" ~/.bashrc
 
 # Prompt for server reboot
 echo -en "\n\n"
 while true
 do
     read -p "Would you like to reboot the server now? [Y/n]: " reboot_confirm
-    : ${reboot_confirm:="Y"}
+    reboot_confirm=${reboot_confirm:-Y}
 
     case $reboot_confirm in
         [yY][eE][sS]|[yY] ) echo "Rebooting the server..."; reboot; break;;
@@ -170,5 +234,3 @@ do
         * ) echo "Please type y or n.";;
     esac
 done
-
-fi
