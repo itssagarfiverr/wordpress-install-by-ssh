@@ -90,8 +90,7 @@ user_input(){
   
   rootpass=$db_password
 
-  read -p "Table Prefix [Default=wp_]: " table_prefix
-  table_prefix=${table_prefix:-wp_}
+  table_prefix="wp_"
 }
 
 certbot_crontab() {
