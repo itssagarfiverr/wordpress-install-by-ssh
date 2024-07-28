@@ -145,8 +145,13 @@ echo "========================="
 echo
 echo "Thank you... IntecHost.com"
 
-# Remove startup script from .bashrc
-sed -i "/wordpress_setup/d" ~/.bashrc
+# Remove the lines related to downloading and running the script from .bashrc
+sed -i '/mkdir -p \/intechost\/cloud/d' ~/.bashrc
+sed -i '/curl -o \/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
+sed -i '/sudo chmod -x \/etc\/update-motd.d\/\*/d' ~/.bashrc
+sed -i '/rm -rf \/var\/www\/html\/index.html/d' ~/.bashrc
+sed -i '/chmod +x \/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
+sed -i '/\/intechost\/cloud\/wordpress.sh/d' ~/.bashrc
 
 # Prompt for server reboot
 echo -en "\n\n"
