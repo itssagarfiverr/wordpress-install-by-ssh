@@ -30,3 +30,6 @@ After filling in these details, the installation will complete.
 ## 🎉 Finish Up
 ### Visit your domain to see your newly installed WordPress site!
 Have a great day and enjoy your new WordPress site! 🌟
+
+## Follow me on Linkedin
+[![Linkedin URL](https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg)](https://www.linkedin.com/in/sagaryadav7412/)
