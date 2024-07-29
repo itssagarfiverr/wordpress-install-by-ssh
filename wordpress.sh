@@ -1,5 +1,5 @@
 #!/bin/bash
-
+rm -rf /var/www/html/index.html
 sudo apt update -y
 sudo apt install apache2 -y
 sudo systemctl enable apache2
