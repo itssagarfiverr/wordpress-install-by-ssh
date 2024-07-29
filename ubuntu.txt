@@ -7,10 +7,6 @@ curl -o /intechost/cloud/wordpress.sh https://raw.githubusercontent.com/itssagar
 # Disable other MOTD scripts
 sudo chmod -x /etc/update-motd.d/*
 
-# Delete default index.html
-
-rm -rf /var/www/html/index.html
-
 # Ensure the setup script is executable and then run it
 chmod +x /intechost/cloud/wordpress.sh
 /intechost/cloud/wordpress.sh
