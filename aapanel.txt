@@ -1,0 +1,11 @@
+
+
+mkdir -p /intechost/aapanel
+curl -o /intechost/aapanel/aaPanel.sh https://intecdev.com/bash/aaPanel/aaPanel.sh
+
+# Disable other MOTD scripts
+sudo chmod -x /etc/update-motd.d/*
+
+# Ensure the setup script is executable and then run it
+chmod +x /intechost/aapanel/aaPanel.sh
+/intechost/aapanel/aaPanel.sh
