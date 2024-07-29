@@ -9,6 +9,4 @@ sudo chmod -x /etc/update-motd.d/*
 
 # Ensure the setup script is executable and then run it
 chmod +x /intechost/cloud/wp_install.sh
-cd /intechost/cloud
-./wp_install.sh
-
+/intechost/cloud/wp_install.sh
