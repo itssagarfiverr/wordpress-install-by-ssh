@@ -1,14 +1,14 @@
-# 🚀 One-Click WordPress Installation on Ubuntu 24.04 LTS
+# 🚀 One-Click WordPress Installation on Ubuntu OS
 ### Easily install WordPress on your Ubuntu server with a simple script and minimal input. Follow these steps to get your site up and running!
 
 **Prerequisites**
->OS Image: Ubuntu 24.04 LTS
+>OS Image: Any Ubuntu OS Image
 
 **Installation Steps**
 
-**Step 1:)** First install the Ubuntu 24.04 LTS OS Image
+**Step 1:)** First install the Ubuntu OS Image
 
-Make sure your server is running the Ubuntu 24.04 LTS operating system.
+Make sure your server is running the Ubuntu operating system.
 
 **Step 2:)** Run the Installation Script in terminal
 ```ruby
