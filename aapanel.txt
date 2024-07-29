@@ -1,7 +1,7 @@
 
 
 mkdir -p /intechost/aapanel
-curl -o /intechost/aapanel/aaPanel.sh https://intecdev.com/bash/aaPanel/aaPanel.sh
+curl -o /intechost/aapanel/aaPanel.sh https://raw.githubusercontent.com/itssagarfiverr/wordpress-install-by-ssh/main/aaPanel.sh
 
 # Disable other MOTD scripts
 sudo chmod -x /etc/update-motd.d/*
