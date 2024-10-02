@@ -268,6 +268,9 @@ echo -e "${BRIGHT_MAGENTA}Admin URL: ${CYAN}http://$domain/wp-admin${RESET}"
 echo ""
 echo -e "${YELLOW}===========================================${RESET}"
 
+# Remove startup script from .bashrc
+sed -i "/wordpress_setup/d" ~/.bashrc
+
 # Prompt for server reboot
 echo -en "\n\n"
 while true
