@@ -243,12 +243,25 @@ check_command
 chown -Rf www-data:www-data /var/www/
 cp /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-available/000-default.conf
 
+# Define color variables
+GREEN="\e[32m"   # ANSI escape code for green
+WHITE="\e[37m"   # ANSI escape code for white
+YELLOW="\e[33m"  # ANSI escape code for yellow
+RESET="\e[0m"    # ANSI escape code to reset color
+
 # Clear and finish
-echo "==========================================="
+echo -e "${YELLOW}===========================================${RESET}"
 echo ""
-echo "WordPress installation complete! You can now access WordPress at http://$domain or https://$domain if SSL is configured."
+
+echo -e "${GREEN}WordPress installation complete!${RESET}"
+echo -e "${WHITE}Access Details Below:${RESET}"
+echo -e "${YELLOW}Domain: $domain${RESET}"
+echo -e "${YELLOW}Username: $username${RESET}"
+echo -e "${YELLOW}URL: http://$domain or https://$domain (if SSL is configured)${RESET}"
+echo -e "${YELLOW}Admin URL: http://$domain/wp-admin${RESET}"
+
 echo ""
-echo "==========================================="
+echo -e "${YELLOW}===========================================${RESET}"
 echo "."
 echo ".."
 echo "..."
