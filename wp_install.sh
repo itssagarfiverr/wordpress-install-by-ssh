@@ -270,6 +270,3 @@ echo -e "${BRIGHT_MAGENTA}Admin URL: ${CYAN}http://$domain/wp-admin${RESET}"
 
 echo ""
 echo -e "${YELLOW}===========================================${RESET}"
-
-# Remove Bash File
-rm -rf "$0"
