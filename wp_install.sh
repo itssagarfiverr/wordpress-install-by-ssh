@@ -272,4 +272,4 @@ echo ""
 echo -e "${YELLOW}===========================================${RESET}"
 
 # Remove Bash File
-chmod 644 wp_install.sh && rm -rf wp_install.sh
+rm -rf "$0"
