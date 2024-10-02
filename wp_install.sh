@@ -247,18 +247,23 @@ cp /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-available/000-
 GREEN="\e[32m"   # ANSI escape code for green
 WHITE="\e[37m"   # ANSI escape code for white
 YELLOW="\e[33m"  # ANSI escape code for yellow
+MAGENTA="\e[35m" # Magenta
+BRIGHT_MAGENTA="\e[95m" # ANSI escape code for bright magenta
+CYAN="\e[36m"    # Cyan
 RESET="\e[0m"    # ANSI escape code to reset color
 
 # Clear and finish
 echo -e "${YELLOW}===========================================${RESET}"
 echo ""
 
-echo -e "${GREEN}WordPress installation complete!${RESET}"
+echo -e "${MAGENTA}WordPress installation complete!${RESET}"
 echo -e "${WHITE}Access Details Below:${RESET}"
 echo -e "${YELLOW}Domain: $domain${RESET}"
 echo -e "${YELLOW}Username: $username${RESET}"
-echo -e "${YELLOW}URL: http://$domain or https://$domain (if SSL is configured)${RESET}"
-echo -e "${YELLOW}Admin URL: http://$domain/wp-admin${RESET}"
+echo -e "${YELLOW}Password: $db_password${RESET}"
+echo -e ""
+echo -e "${BRIGHT_MAGENTA}URL: ${CYAN}http://$domain ${BRIGHT_MAGENTA}or ${CYAN}https://$domain ${BRIGHT_MAGENTA}(if SSL is configured)${RESET}"
+echo -e "${BRIGHT_MAGENTA}Admin URL: ${CYAN}http://$domain/wp-admin${RESET}"
 
 echo ""
 echo -e "${YELLOW}===========================================${RESET}"
