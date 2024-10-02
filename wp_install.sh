@@ -88,7 +88,7 @@ db_name="$(generate_random_string)_db"
 
 db_user="$(generate_random_string)_user"
 
-db_password=$(openssl rand -base64 12)"
+db_password=$(openssl rand -base64 12)
 
 db_host="localhost"
   
