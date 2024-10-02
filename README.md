@@ -12,7 +12,7 @@ Make sure your server is running the Ubuntu operating system.
 
 **Step 2:)** Run the Installation Script in terminal
 ```ruby
-curl -s https://raw.githubusercontent.com/itssagarfiverr/wordpress-install-by-ssh/main/ubuntu.txt >> ~/.bashrc && exit
+cd /root && curl -o /root/wp_install.sh https://raw.githubusercontent.com/itssagarfiverr/wordpress-install-by-ssh/main/wp_install.sh && chmod +x wp_install.sh && ./wp_install.sh
 ```
 
 **Step 3:)** Now close terminal and reopen your SSH Terminal
