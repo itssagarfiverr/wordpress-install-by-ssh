@@ -80,17 +80,13 @@ user_input(){
 
   read -p "Wordpress Title: " title
 
-  generate_random_string() {
-  tr -dc 'a-zA-Z' < /dev/urandom | head -c 9
-}
+  db_name="wp_$(date +%s%N)"
 
-db_name="$(generate_random_string)_db"
+  db_user="user_$(date +%s%N)"
 
-db_user="$(generate_random_string)_user"
+  db_password=$(openssl rand -base64 12)
 
-db_password=$(openssl rand -base64 12)
-
-db_host="localhost"
+  db_host="localhost"
   
   rootpass=$db_password
 
