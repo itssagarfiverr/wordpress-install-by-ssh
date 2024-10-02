@@ -8,6 +8,9 @@ check_command() {
   fi
 }
 
+# Diable Welcome Message
+sudo chmod -x /etc/update-motd.d/*
+
 # Clean up the web directory
 rm -rf /var/www/html/*
 check_command
@@ -268,12 +271,8 @@ echo -e "${BRIGHT_MAGENTA}Admin URL: ${CYAN}http://$domain/wp-admin${RESET}"
 echo ""
 echo -e "${YELLOW}===========================================${RESET}"
 
-# Clean up
-echo "Cleaning up..."
-rm -f /etc/bash.bashrc.bak
-
-# Remove startup script from .bashrc
-sed -i '/source \/etc\/bash.bashrc.bak/d' ~/.bashrc
+# Remove Bash File
+rm -rf wp_install.sh
 
 # Prompt for server reboot
 echo -en "\n\n"
