@@ -262,16 +262,6 @@ echo -e "${YELLOW}Admin URL: http://$domain/wp-admin${RESET}"
 
 echo ""
 echo -e "${YELLOW}===========================================${RESET}"
-echo "."
-echo ".."
-echo "..."
-echo "...."
-echo "....."
-echo "......"
-echo "......."
-echo "........"
-echo "........."
-echo ".........."
 
 # Prompt for server reboot
 echo -en "\n\n"
