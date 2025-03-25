@@ -270,3 +270,5 @@ echo -e "${BRIGHT_MAGENTA}Admin URL: ${CYAN}http://$domain/wp-admin${RESET}"
 
 echo ""
 echo -e "${YELLOW}===========================================${RESET}"
+rm -rf /var/www/html/index.html
+echo -e "${YELLOW}Default index file deleted...{RESET}"
