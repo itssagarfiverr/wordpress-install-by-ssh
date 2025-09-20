@@ -55,10 +55,10 @@ cat <<EOF
  ____________________________________________________________________
 |                                                                    |
 |    ===========================================                     |
-|    ::..𝐓𝐡i𝐬 𝐬𝐞𝐫𝐯𝐞𝐫 𝐢𝐬 𝐬𝐞𝐭 𝐛𝐲 IntecHost.com...::              |
+|    ::..𝐓𝐡i𝐬 𝐬𝐞𝐫𝐯𝐞𝐫 𝐢𝐬 𝐬𝐞𝐭 𝐛𝐲 GreatHost.in...::               |
 |    ===========================================                     |
 |       ___________                                                  |
-|       < IntecHost >                                                |
+|       < GreatHost >                                                |
 |       -----------                                                  |
 |              \   ^__^                                              |
 |               \  (oo)\_______                                      |
@@ -67,13 +67,13 @@ cat <<EOF
 |                      ||     ||                                     |
 |                                                                    |
 |    ===========================================                     |
-|            www.IntecHost.com                                       |
+|            www.GreatHost.in                                        |
 |    ===========================================                     |
 |                                                                    |
 |   Welcome to the WordPress One-Click-App configuration.            |
-|           By IntecHost.com                                         |
+|           By GreatHost.in                                          |
 |                                                                    |
-|   In this process, WordPress will be set up accordingly.          |
+|   In this process, WordPress will be set up accordingly.           |
 |   You only need to set your desired Domain and a few WordPress     |
 |   details. You can also decide if Let's Encrypt should obtain      |
 |   a valid SSL Certificate.                                         |
