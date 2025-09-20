@@ -19,7 +19,7 @@ cd /root && curl -o /root/wp_install.sh https://raw.githubusercontent.com/itssag
 
 Now wait some task running then Enter basic details see below screenshot.
 
-![Screenshot of Interface](https://intecdev.com/bash/ss.jpeg)
+![Screenshot of Interface]([https://intecdev.com/bash/ss.jpeg](https://i.ibb.co/GQLYj1k1/image.png))
 
 - Domain name
 * Email
